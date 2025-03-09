@@ -164,7 +164,7 @@ class MyHomePage extends StatelessWidget {
             PostContent(
               userName: 'null∞llunTaKa',
               userIcon: 'assets/first_icon.JPG',
-              postText: 'ᝰ ✍🏻',
+              postText: 'ᝰ✍🏻',
               postImage: 'assets/first_post.png',
               comments: '1',
               forwards: '47',
@@ -180,7 +180,8 @@ class MyHomePage extends StatelessWidget {
             PostContent(
               userName: 'namaco moon 🌖',
               userIcon: 'assets/second_icon.JPG',
-              postText: 'ᝰ ✍🏻',
+              postText:
+                  'just realized she uses her right hand for powder/jinx and her left hand for caitlyn. oh, these are her girls and she was born with two hands to be able to love them both',
               postImage: 'assets/second_post.JPG',
               comments: '1',
               forwards: '47',
