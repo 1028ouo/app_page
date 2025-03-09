@@ -161,17 +161,50 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           children: [
             ForwardContainer(),
-            PostContent(),
+            PostContent(
+              userName: 'null∞llunTaKa',
+              userIcon: 'assets/first_icon.JPG',
+              postText: 'ᝰ ✍🏻',
+              postImage: 'assets/first_post.png',
+              comments: '1',
+              forwards: '47',
+              likes: '783',
+              views: '1.6萬',
+              verified: true,
+              userAccount: '@nullllllun•1天',
+            ),
             Divider(
               color: Color.fromARGB(255, 78, 94, 109),
               thickness: 0.3,
             ), // 分隔線
-            PostContent(),
+            PostContent(
+              userName: 'namaco moon 🌖',
+              userIcon: 'assets/second_icon.JPG',
+              postText: 'ᝰ ✍🏻',
+              postImage: 'assets/second_post.JPG',
+              comments: '1',
+              forwards: '47',
+              likes: '783',
+              views: '1.6萬',
+              verified: false,
+              userAccount: '@namacomoon•1天',
+            ),
             Divider(
               color: Color.fromARGB(255, 78, 94, 109),
               thickness: 0.3,
             ), // 分隔線
-            PostContent(),
+            PostContent(
+              userName: 'null∞llunTaKa',
+              userIcon: 'assets/first_icon.JPG',
+              postText: 'ᝰ ✍🏻',
+              postImage: 'assets/first_post.png',
+              comments: '1',
+              forwards: '47',
+              likes: '783',
+              views: '1.6萬',
+              verified: true,
+              userAccount: '@nullllllun•1天',
+            ),
           ],
         ),
       ),
@@ -188,27 +221,24 @@ class ForwardContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 30,
-      padding: const EdgeInsets.only(left: 50),
+      padding: const EdgeInsets.only(left: 35),
       child: const Align(
         alignment: Alignment.bottomLeft,
-        child: SizedBox(
-          height: 20,
-          child: Row(
-            children: [
-              Image(
-                image: AssetImage('assets/forward.png'),
-                height: 15, // 根據需要調整圖片高度
-                // fit: BoxFit.cover, // 確保圖片填滿圓形
-              ),
-              Text(
-                ' 𝓨𝓪𝓼 ☽ ❋已轉發',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 139, 152, 165),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700),
-              ),
-            ],
-          ),
+        child: Row(
+          children: [
+            Image(
+              image: AssetImage('assets/forward.png'),
+              height: 15, // 根據需要調整圖片高度
+              // fit: BoxFit.cover, // 確保圖片填滿圓形
+            ),
+            Text(
+              ' 𝓨𝓪𝓼 ☽ ❋已轉發',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 139, 152, 165),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700),
+            ),
+          ],
         ),
       ),
     );
@@ -216,31 +246,58 @@ class ForwardContainer extends StatelessWidget {
 }
 
 class PostContent extends StatelessWidget {
-  const PostContent({super.key});
+  final String userName;
+  final String userIcon;
+  final String postText;
+  final String postImage;
+  final String comments;
+  final String forwards;
+  final String likes;
+  final String views;
+  final bool verified;
+  final String userAccount;
+
+  const PostContent({
+    super.key,
+    required this.userName,
+    required this.userIcon,
+    required this.postText,
+    required this.postImage,
+    required this.comments,
+    required this.forwards,
+    required this.likes,
+    required this.views,
+    required this.verified,
+    required this.userAccount,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          UserIcon(userIcon: userIcon),
+          const SizedBox(width: 10),
           Expanded(
-            flex: 0,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UserIcon(),
-                SizedBox(
-                  height: 482,
+                UserInfoRow(
+                    userName: userName,
+                    verified: verified,
+                    userAccount: userAccount),
+                PostText(postText: postText),
+                const SizedBox(height: 5),
+                PostImage(postImage: postImage),
+                const SizedBox(height: 5),
+                PostActions(
+                  comments: comments,
+                  forwards: forwards,
+                  likes: likes,
+                  views: views,
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                UserInfoRow(),
-                PostText(),
-                PostImage(),
-                PostActions(),
               ],
             ),
           ),
@@ -251,197 +308,188 @@ class PostContent extends StatelessWidget {
 }
 
 class UserIcon extends StatelessWidget {
-  const UserIcon({super.key});
+  final String userIcon;
+
+  const UserIcon({super.key, required this.userIcon});
 
   @override
   Widget build(BuildContext context) {
-    return const Align(
-      alignment: Alignment.topCenter,
-      widthFactor: 1.3,
-      child: ClipOval(
-        child: Image(
-          image: AssetImage('assets/first_icon.JPG'),
-          height: 45, // 根據需要調整圖片高度
-          // fit: BoxFit.cover, // 確保圖片填滿圓形
-        ),
+    return ClipOval(
+      child: Image(
+        image: AssetImage(userIcon),
+        height: 45, // 根據需要調整圖片高度
+        width: 45, // 根據需要調整圖片寬度
+        fit: BoxFit.cover, // 確保圖片填滿圓形
       ),
     ); // 頭貼
   }
 }
 
 class UserInfoRow extends StatelessWidget {
-  const UserInfoRow({super.key});
+  final String userName;
+  final String userAccount;
+  final bool verified;
+
+  const UserInfoRow(
+      {super.key,
+      required this.userName,
+      required this.verified,
+      required this.userAccount});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
-        Align(
-          alignment: Alignment.topLeft,
-          child: SizedBox(
-            height: 22,
-            child: Row(
-              children: [
-                Text(
-                  'null∞llunTaKa ',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-                Icon(
-                  Icons.verified,
-                  color: Color.fromARGB(255, 29, 155, 240),
-                  size: 15,
-                ),
-                Text(
-                  ' @nullllllun•1天 ',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 139, 152, 165),
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
+        Text(
+          '$userName ',
+          style: const TextStyle(
+              color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+        if (verified)
+          const Icon(
+            Icons.verified,
+            color: Color.fromARGB(255, 29, 155, 240),
+            size: 15,
+          ),
+        Text(
+          ' $userAccount ',
+          style: const TextStyle(
+            color: Color.fromARGB(255, 139, 152, 165),
+            fontSize: 15,
           ),
         ),
-        Spacer(),
-        Padding(
-          padding: EdgeInsets.only(right: 10.0, bottom: 10.0),
-          child: SizedBox(
-            height: 10,
-            child: Center(
-              child: Icon(Icons.more_horiz,
-                  color: Color.fromARGB(255, 92, 110, 126), size: 20),
-            ),
-          ),
+        const Spacer(),
+        const Padding(
+          padding: EdgeInsets.only(right: 1.0),
+          child: Icon(Icons.more_horiz,
+              color: Color.fromARGB(255, 92, 110, 126), size: 20),
         ),
-        // SizedBox(
-        //   width: 10,
-        // ),
       ],
     );
   }
 }
 
 class PostText extends StatelessWidget {
-  const PostText({super.key});
+  final String postText;
+
+  const PostText({super.key, required this.postText});
 
   @override
   Widget build(BuildContext context) {
-    return const Align(
-      alignment: Alignment.centerLeft,
-      child: Text('ᝰ ✍🏻',
-          style: TextStyle(
-              color: Colors.white, fontSize: 17, fontWeight: FontWeight.w500)),
-    );
+    return Text(postText,
+        style: const TextStyle(
+            color: Colors.white, fontSize: 17, fontWeight: FontWeight.w500));
   }
 }
 
 class PostImage extends StatelessWidget {
-  const PostImage({super.key});
+  final String postImage;
+
+  const PostImage({super.key, required this.postImage});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 10.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15.0), // 設定圓角
-        child: const Image(
-          image: AssetImage('assets/first_post.JPG'),
-        ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15.0), // 設定圓角
+      child: Image(
+        image: AssetImage(postImage),
       ),
     );
   }
 }
 
 class PostActions extends StatelessWidget {
-  const PostActions({super.key});
+  final String comments;
+  final String forwards;
+  final String likes;
+  final String views;
+
+  const PostActions({
+    super.key,
+    required this.comments,
+    required this.forwards,
+    required this.likes,
+    required this.views,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(top: 2, bottom: 2, left: 5),
-      child: Row(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Image(
-                    image: AssetImage('assets/comments.png'),
-                    height: 19,
-                    color: Color.fromARGB(255, 139, 152, 165)),
-                Text('1',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 139, 152, 165),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300)), // 留言數
-              ],
+    return Row(
+      children: [
+        Row(
+          children: [
+            const Image(
+                image: AssetImage('assets/comments.png'),
+                height: 19,
+                color: Color.fromARGB(255, 139, 152, 165)),
+            Text(comments,
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 139, 152, 165),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300)), // 留言數
+          ],
+        ),
+        const SizedBox(width: 30),
+        Row(
+          children: [
+            const Image(
+                image: AssetImage('assets/forward.png'),
+                height: 18,
+                color: Color.fromARGB(255, 139, 152, 165)),
+            Text(forwards,
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 139, 152, 165),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500)),
+          ],
+        ), // 轉發數
+        const SizedBox(width: 30),
+        Row(
+          children: [
+            const Icon(
+              Icons.favorite_border,
+              color: Color.fromARGB(255, 139, 152, 165),
+              size: 17,
             ),
-          ),
-          Expanded(
-              child: Row(
-            children: [
-              Image(
-                  image: AssetImage('assets/forward.png'),
-                  height: 18,
-                  color: Color.fromARGB(255, 139, 152, 165)),
-              Text('47',
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 139, 152, 165),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500)),
-            ],
-          )), // 轉發數
-          Expanded(
-              child: Row(
-            children: [
-              Icon(
-                Icons.favorite_border,
-                color: Color.fromARGB(255, 139, 152, 165),
-                size: 17,
-              ),
-              Text(' 783',
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 139, 152, 165),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500)),
-            ],
-          )), // 愛心數
-          Expanded(
-              child: Row(
-            children: [
-              Image(
-                  image: AssetImage('assets/data.png'),
-                  height: 15,
-                  color: Color.fromARGB(255, 139, 152, 165)),
-              Text(' 1.6萬',
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 139, 152, 165),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500)),
-            ],
-          )), // 查看數
-          Expanded(
-              child: Row(
-            children: [
-              Icon(
-                Icons.bookmark_border,
-                color: Color.fromARGB(255, 139, 152, 165),
-                size: 20,
-              ),
-              SizedBox(
-                width: 13,
-              ),
-              Image(
-                  image: AssetImage('assets/share.png'),
-                  height: 17,
-                  color: Color.fromARGB(255, 139, 152, 165)),
-            ],
-          )), // 貼文內容
-        ],
-      ),
+            Text(' $likes',
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 139, 152, 165),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500)),
+          ],
+        ), // 愛心數
+        const SizedBox(width: 30),
+        Row(
+          children: [
+            const Image(
+                image: AssetImage('assets/data.png'),
+                height: 15,
+                color: Color.fromARGB(255, 139, 152, 165)),
+            Text(' $views',
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 139, 152, 165),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500)),
+          ],
+        ), // 查看數
+        const SizedBox(width: 20),
+        const Row(
+          children: [
+            Icon(
+              Icons.bookmark_border,
+              color: Color.fromARGB(255, 139, 152, 165),
+              size: 20,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Image(
+                image: AssetImage('assets/share.png'),
+                height: 17,
+                color: Color.fromARGB(255, 139, 152, 165)),
+          ],
+        ), // 貼文內容
+      ],
     );
   }
 }
