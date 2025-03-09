@@ -7,119 +7,427 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false, // 移除右上角的 debug 標籤
+      home: MyHomePage(title: 'assets/x_icon.png'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: const Color.fromARGB(255, 21, 31, 42),
+        toolbarHeight: 90, // 設定 AppBar 高度
+        title: Column(
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            SizedBox(
+              height: 40,
+              child: Row(
+                children: <Widget>[
+                  const Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: ClipOval(
+                        child: Image(
+                          image: AssetImage('assets/my_icon.JPG'),
+                          height: 32, // 根據需要調整圖片高度
+                          width: 32, // 根據需要調整圖片寬度
+                          fit: BoxFit.cover, // 確保圖片填滿圓形
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Spacer(), // 設定左右間隔
+                  const Expanded(
+                    child: Center(
+                      child: Image(
+                        image: AssetImage('assets/x_icon.png'),
+                        height: 32, // 根據需要調整圖片高度
+                      ),
+                    ),
+                  ),
+                  const Spacer(), // 設定左右間隔
+                  Expanded(
+                    child: SizedBox(
+                      height: 35,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: OutlinedButton(
+                          onPressed: null,
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(
+                                color: Color.fromARGB(255, 66, 83, 100),
+                                width: 1), // 設定邊框顏色和寬度
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 0), // 設定左右間隔
+                          ),
+                          child: const Text(
+                            '升級',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14, // 設定文字大小
+                            ), // 設定文字顏色為白色
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            const SizedBox(
+              height: 40,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        '為你推薦',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16, // 設定文字大小
+                        ), // 設定文字顏色為白色
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        '正在跟隨',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 139, 152, 165),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16, // 設定文字大小
+                        ), // 設定文字顏色為白色
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 4,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Center(
+                        child: Container(
+                      height: 4,
+                      width: 90,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 29, 155, 240),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    )),
+                  ),
+                  Expanded(
+                    child: Center(
+                        child: Container(
+                      height: 4,
+                      width: 90,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 21, 31, 42),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    )),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(0.0),
+          child: Container(
+            color: const Color.fromARGB(255, 78, 94, 109),
+            height: 1.0,
+          ),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      backgroundColor: const Color.fromARGB(255, 21, 32, 43),
+      body: Column(
+        children: [
+          Container(
+            height: 30,
+            padding: const EdgeInsets.only(left: 50),
+            child: const Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  height: 20,
+                  child: Row(
+                    children: [
+                      Image(
+                        image: AssetImage('assets/forward.png'),
+                        height: 17, // 根據需要調整圖片高度
+                        // fit: BoxFit.cover, // 確保圖片填滿圓形
+                      ),
+                      Text(
+                        '𝓨𝓪𝓼 ☽ ❋已轉發',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 139, 152, 165),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                )),
+          ), //轉發
+          SizedBox(
+            child: Row(
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  widthFactor: 1.5,
+                  child: ClipOval(
+                    child: Image(
+                      image: AssetImage('assets/first_icon.JPG'),
+                      height: 50, // 根據需要調整圖片高度
+                      // fit: BoxFit.cover, // 確保圖片填滿圓形
+                    ),
+                  ),
+                ), // 頭貼
+                Expanded(
+                  child: Column(
+                    children: [
+                      const Row(
+                        children: [
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: SizedBox(
+                              height: 20,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'null∞llunTaKa ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Icon(
+                                    Icons.verified,
+                                    color: Color.fromARGB(255, 29, 155, 240),
+                                    size: 15,
+                                  ),
+                                  Text(
+                                    ' @nullllllun•1天 ',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 139, 152, 165),
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: SizedBox(
+                              height: 15,
+                              child: Center(
+                                child: Text(
+                                  '•••',
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 139, 152, 165),
+                                      fontSize: 15),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('ᝰ ✍🏻',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500)),
+                      ), // 貼文內容
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 5.0, bottom: 5.0, left: 5.0, right: 10.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0), // 設定圓角
+                          child: const Image(
+                            image: AssetImage('assets/first_post.JPG'),
+                          ),
+                        ),
+                      ), // 貼文圖片
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Image(
+                                      image: AssetImage('assets/comments.png'),
+                                      height: 17,
+                                      color:
+                                          Color.fromARGB(255, 139, 152, 165)),
+                                  Text('1',
+                                      style: TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 139, 152, 165),
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w300)), // 留言數
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Image(
+                                    image: AssetImage('assets/forward.png'),
+                                    height: 18,
+                                    color: Color.fromARGB(255, 139, 152, 165)),
+                                Text('47',
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 139, 152, 165),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            )), // 轉發數
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Icon(
+                                  Icons.favorite_border,
+                                  color: Color.fromARGB(255, 139, 152, 165),
+                                  size: 17,
+                                ),
+                                Text(' 783',
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 139, 152, 165),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            )), // 愛心數
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Image(
+                                    image: AssetImage('assets/data.png'),
+                                    height: 16,
+                                    color: Color.fromARGB(255, 139, 152, 165)),
+                                Text(' 1.6萬',
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 139, 152, 165),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500)),
+                              ],
+                            )), // 查看數
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Icon(
+                                  Icons.bookmark_border,
+                                  color: Color.fromARGB(255, 139, 152, 165),
+                                  size: 19,
+                                ),
+                                SizedBox(
+                                  width: 13,
+                                ),
+                                Image(
+                                    image: AssetImage('assets/share.png'),
+                                    height: 19,
+                                    color: Color.fromARGB(255, 139, 152, 165)),
+                              ],
+                            )), // 貼文內容
+                          ],
+                        ),
+                      ), // 按鈕
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ), // 第一則貼文
+          const Divider(
+            color: Color.fromARGB(255, 78, 94, 109),
+            thickness: 1,
+          ), // 分隔線
+        ],
+      ),
+      floatingActionButton: const IncrementButton(),
+      bottomNavigationBar: const CustomNavigationBar(),
+    );
+  }
+}
+
+class IncrementButton extends StatelessWidget {
+  const IncrementButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: 57.0, // 設定按鈕寬度
+      height: 57.0, // 設定按鈕高度
+      child: FloatingActionButton(
+        onPressed: null,
+        backgroundColor: Colors.blue, // 設定按鈕背景顏色
+        shape: CircleBorder(), // 設定按鈕形狀為圓形
+        disabledElevation: 0, // 移除按下時的陰影
+        child: Icon(
+          Icons.add,
+          size: 30, // 設定加號大小
+          color: Colors.white, // 設定加號顏色為白色
+        ),
+      ),
+    );
+  }
+}
+
+class CustomNavigationBar extends StatelessWidget {
+  const CustomNavigationBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          color: const Color.fromARGB(255, 78, 94, 109),
+          height: 0.5,
+        ),
+        Container(
+          color: const Color.fromARGB(255, 21, 31, 42),
+          padding: const EdgeInsets.only(top: 2, bottom: 25), // 調整單一 padding
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              ImageIcon(AssetImage('assets/home.png'),
+                  size: 32, color: Colors.white),
+              Icon(Icons.search, size: 32, color: Colors.white),
+              ImageIcon(AssetImage('assets/grok.png'),
+                  size: 52, color: Colors.white),
+              Icon(Icons.play_circle_outline, size: 27, color: Colors.white),
+              ImageIcon(AssetImage('assets/notification.png'),
+                  size: 27, color: Colors.white),
+              Icon(Icons.mail_outlined, size: 27, color: Colors.white),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
