@@ -11,149 +11,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false, // 移除右上角的 debug 標籤
-      home: MyHomePage(title: 'assets/x_icon.png'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 21, 31, 42),
-        toolbarHeight: 77, // 設定 AppBar 高度
-        title: Column(
-          children: <Widget>[
-            Padding(
-              // height: 40,
-              padding: const EdgeInsets.only(top: 0.0),
-              child: Row(
-                children: <Widget>[
-                  const Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: ClipOval(
-                        child: Image(
-                          image: AssetImage('assets/my_icon.JPG'),
-                          height: 32, // 根據需要調整圖片高度
-                          width: 32, // 根據需要調整圖片寬度
-                          fit: BoxFit.cover, // 確保圖片填滿圓形
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Spacer(), // 設定左右間隔
-                  const Expanded(
-                    child: Center(
-                      child: Image(
-                        image: AssetImage('assets/x_icon.png'),
-                        height: 32, // 根據需要調整圖片高度
-                      ),
-                    ),
-                  ),
-                  const Spacer(), // 設定左右間隔
-                  Expanded(
-                    child: SizedBox(
-                      height: 33,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: OutlinedButton(
-                          onPressed: null,
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
-                                color: Color.fromARGB(255, 66, 83, 100),
-                                width: 1), // 設定邊框顏色和寬度
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 0), // 設定左右間隔
-                          ),
-                          child: const Text(
-                            '升級',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13, // 設定文字大小
-                            ), // 設定文字顏色為白色
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 40,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        '為你推薦',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15, // 設定文字大小
-                        ), // 設定文字顏色為白色
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        '正在跟隨',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 139, 152, 165),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15, // 設定文字大小
-                        ), // 設定文字顏色為白色
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 4,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Center(
-                        child: Container(
-                      height: 3,
-                      width: 70,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 29, 155, 240),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    )),
-                  ),
-                  Expanded(
-                    child: Center(
-                        child: Container(
-                      height: 3,
-                      width: 90,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 21, 31, 42),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    )),
-                  ),
-                ],
-              ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(77.3), // 77 + 0.3 的高度
+        child: Column(
+          children: [
+            const CustomAppBar(),
+            Container(
+              color: const Color.fromARGB(255, 78, 94, 109),
+              height: 0.3,
             ),
           ],
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(0.0),
-          child: Container(
-            color: const Color.fromARGB(255, 78, 94, 109),
-            height: 0.3,
-          ),
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 21, 32, 43),
@@ -183,10 +61,10 @@ class MyHomePage extends StatelessWidget {
               postText:
                   'just realized she uses her right hand for powder/jinx and her left hand for caitlyn. oh, these are her girls and she was born with two hands to be able to love them both',
               postImage: 'assets/second_post.JPG',
-              comments: '1',
-              forwards: '47',
-              likes: '783',
-              views: '1.6萬',
+              comments: '26',
+              forwards: '1700',
+              likes: '1.9萬',
+              views: '20萬',
               verified: false,
               userAccount: '@namacomoon•1天',
             ),
@@ -195,22 +73,221 @@ class MyHomePage extends StatelessWidget {
               thickness: 0.3,
             ), // 分隔線
             PostContent(
-              userName: 'null∞llunTaKa',
-              userIcon: 'assets/first_icon.JPG',
-              postText: 'ᝰ ✍🏻',
-              postImage: 'assets/first_post.png',
-              comments: '1',
-              forwards: '47',
-              likes: '783',
-              views: '1.6萬',
+              userName: 'ハスカップ07',
+              userIcon: 'assets/third_icon.JPG',
+              postText: '河津桜満開な葛西臨海公園が美しいです',
+              postImage: 'assets/third_post.jpeg',
+              comments: '12',
+              forwards: '864',
+              likes: '7798',
+              views: '14萬',
               verified: true,
-              userAccount: '@nullllllun•1天',
+              userAccount: '@haskap1017•1天',
             ),
           ],
         ),
       ),
       floatingActionButton: const IncrementButton(),
       bottomNavigationBar: const CustomNavigationBar(),
+    );
+  }
+}
+
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const CustomAppBar({super.key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(77);
+
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar>
+    with SingleTickerProviderStateMixin {
+  int _selectedIndex = 0; // 0: 為你推薦, 1: 正在跟隨
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTabChanged(int index) {
+    if (_selectedIndex != index) {
+      setState(() {
+        _selectedIndex = index;
+        if (index == 0) {
+          _controller.reverse();
+        } else {
+          _controller.forward();
+        }
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // 獲取螢幕寬度用於計算位置
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // 計算每個標籤佔據的寬度
+    final tabWidth = screenWidth / 2;
+
+    // 線條寬度
+    const lineWidth1 = 70.0; // 為你推薦的線寬
+    const lineWidth2 = 70.0; // 正在跟隨的線寬
+
+    return AppBar(
+      backgroundColor: const Color.fromARGB(255, 21, 31, 42),
+      toolbarHeight: 77,
+      title: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              const Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: ClipOval(
+                    child: Image(
+                      image: AssetImage('assets/my_icon.JPG'),
+                      height: 32,
+                      width: 32,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              const Spacer(),
+              const Expanded(
+                child: Center(
+                  child: Image(
+                    image: AssetImage('assets/x_icon.png'),
+                    height: 32,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              Expanded(
+                child: SizedBox(
+                  height: 33,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: OutlinedButton(
+                      onPressed: null,
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 66, 83, 100), width: 1),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
+                      ),
+                      child: const Text(
+                        '升級',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 40,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => _onTabChanged(0),
+                    child: Center(
+                      child: Text(
+                        '為你推薦',
+                        style: TextStyle(
+                          color: _selectedIndex == 0
+                              ? Colors.white
+                              : const Color.fromARGB(255, 139, 152, 165),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => _onTabChanged(1),
+                    child: Center(
+                      child: Text(
+                        '正在跟隨',
+                        style: TextStyle(
+                          color: _selectedIndex == 1
+                              ? Colors.white
+                              : const Color.fromARGB(255, 139, 152, 165),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 4,
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                // 計算線條位置
+                final centerPosition1 = tabWidth / 2 - lineWidth1 / 2 - 7;
+                final centerPosition2 =
+                    tabWidth + tabWidth / 2 - lineWidth2 / 2 - 23;
+
+                // 根據動畫值計算當前位置
+                final currentPosition =
+                    centerPosition1 * (1 - _animation.value) +
+                        centerPosition2 * _animation.value;
+
+                // 根據動畫值計算當前寬度
+                final currentWidth = lineWidth1 * (1 - _animation.value) +
+                    lineWidth2 * _animation.value;
+
+                return Stack(
+                  children: [
+                    // 藍色線條，精準定位在標籤中心
+                    Positioned(
+                      left: currentPosition,
+                      child: Container(
+                        height: 3,
+                        width: currentWidth,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 29, 155, 240),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -379,7 +456,7 @@ class PostText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(postText,
         style: const TextStyle(
-            color: Colors.white, fontSize: 17, fontWeight: FontWeight.w500));
+            color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400));
   }
 }
 
@@ -415,82 +492,123 @@ class PostActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Row(
-          children: [
-            const Image(
-                image: AssetImage('assets/comments.png'),
-                height: 19,
-                color: Color.fromARGB(255, 139, 152, 165)),
-            Text(comments,
-                style: const TextStyle(
-                    color: Color.fromARGB(255, 139, 152, 165),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300)), // 留言數
-          ],
-        ),
-        const SizedBox(width: 30),
-        Row(
-          children: [
-            const Image(
-                image: AssetImage('assets/forward.png'),
-                height: 18,
-                color: Color.fromARGB(255, 139, 152, 165)),
-            Text(forwards,
-                style: const TextStyle(
-                    color: Color.fromARGB(255, 139, 152, 165),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500)),
-          ],
-        ), // 轉發數
-        const SizedBox(width: 30),
-        Row(
-          children: [
-            const Icon(
-              Icons.favorite_border,
-              color: Color.fromARGB(255, 139, 152, 165),
-              size: 17,
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                const Image(
+                    image: AssetImage('assets/comments.png'),
+                    height: 19,
+                    color: Color.fromARGB(255, 139, 152, 165)),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    comments,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 139, 152, 165),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
             ),
-            Text(' $likes',
-                style: const TextStyle(
-                    color: Color.fromARGB(255, 139, 152, 165),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500)),
-          ],
-        ), // 愛心數
-        const SizedBox(width: 30),
-        Row(
-          children: [
-            const Image(
-                image: AssetImage('assets/data.png'),
-                height: 15,
-                color: Color.fromARGB(255, 139, 152, 165)),
-            Text(' $views',
-                style: const TextStyle(
-                    color: Color.fromARGB(255, 139, 152, 165),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500)),
-          ],
-        ), // 查看數
-        const SizedBox(width: 20),
-        const Row(
-          children: [
-            Icon(
-              Icons.bookmark_border,
-              color: Color.fromARGB(255, 139, 152, 165),
-              size: 20,
+          ),
+
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                const Image(
+                    image: AssetImage('assets/forward.png'),
+                    height: 18,
+                    color: Color.fromARGB(255, 139, 152, 165)),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    forwards,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 139, 152, 165),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(
-              width: 10,
+          ),
+
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.favorite_border,
+                  color: Color.fromARGB(255, 139, 152, 165),
+                  size: 17,
+                ),
+                Expanded(
+                  child: Text(
+                    ' $likes',
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 139, 152, 165),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
             ),
-            Image(
-                image: AssetImage('assets/share.png'),
-                height: 17,
-                color: Color.fromARGB(255, 139, 152, 165)),
-          ],
-        ), // 貼文內容
-      ],
+          ),
+
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                const Image(
+                    image: AssetImage('assets/data.png'),
+                    height: 15,
+                    color: Color.fromARGB(255, 139, 152, 165)),
+                Expanded(
+                  child: Text(
+                    ' $views',
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 139, 152, 165),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // 最後兩個圖標保持固定位置
+          const Expanded(
+            flex: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(
+                  Icons.bookmark_border,
+                  color: Color.fromARGB(255, 139, 152, 165),
+                  size: 20,
+                ),
+                SizedBox(width: 10),
+                Image(
+                    image: AssetImage('assets/share.png'),
+                    height: 17,
+                    color: Color.fromARGB(255, 139, 152, 165)),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -528,7 +646,7 @@ class CustomNavigationBar extends StatelessWidget {
       children: [
         Container(
           color: const Color.fromARGB(255, 78, 94, 109),
-          height: 0.5,
+          height: 0.3,
         ),
         Container(
           color: const Color.fromARGB(255, 21, 31, 42),
