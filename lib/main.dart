@@ -16,8 +16,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+// 將主頁改為有狀態組件，以便管理當前選擇的標籤
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedTabIndex = 0; // 0: 為你推薦, 1: 正在跟隨
+
+  // 當標籤切換時更新狀態
+  void _onTabChanged(int index) {
+    setState(() {
+      _selectedTabIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +41,10 @@ class MyHomePage extends StatelessWidget {
         preferredSize: const Size.fromHeight(77.3), // 77 + 0.3 的高度
         child: Column(
           children: [
-            const CustomAppBar(),
+            CustomAppBar(
+              selectedIndex: _selectedTabIndex,
+              onTabChanged: _onTabChanged,
+            ),
             Container(
               color: const Color.fromARGB(255, 78, 94, 109),
               height: 0.3,
@@ -35,55 +53,112 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 21, 32, 43),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            ForwardContainer(),
-            PostContent(
-              userName: 'null∞llunTaKa',
-              userIcon: 'assets/first_icon.JPG',
-              postText: 'ᝰ✍🏻',
-              postImage: 'assets/first_post.png',
-              comments: '1',
-              forwards: '47',
-              likes: '783',
-              views: '1.6萬',
-              verified: true,
-              userAccount: '@nullllllun•1天',
-            ),
-            Divider(
-              color: Color.fromARGB(255, 78, 94, 109),
-              thickness: 0.3,
-            ), // 分隔線
-            PostContent(
-              userName: 'namaco moon 🌖',
-              userIcon: 'assets/second_icon.JPG',
-              postText:
-                  'just realized she uses her right hand for powder/jinx and her left hand for caitlyn. oh, these are her girls and she was born with two hands to be able to love them both',
-              postImage: 'assets/second_post.JPG',
-              comments: '26',
-              forwards: '1700',
-              likes: '1.9萬',
-              views: '20萬',
-              verified: false,
-              userAccount: '@namacomoon•1天',
-            ),
-            Divider(
-              color: Color.fromARGB(255, 78, 94, 109),
-              thickness: 0.3,
-            ), // 分隔線
-            PostContent(
-              userName: 'ハスカップ07',
-              userIcon: 'assets/third_icon.JPG',
-              postText: '河津桜満開な葛西臨海公園が美しいです',
-              postImage: 'assets/third_post.jpeg',
-              comments: '12',
-              forwards: '864',
-              likes: '7798',
-              views: '14萬',
-              verified: true,
-              userAccount: '@haskap1017•1天',
-            ),
+            // 根據選擇的標籤顯示不同的內容
+            if (_selectedTabIndex == 0)
+              // 為你推薦 標籤的內容
+              const Column(
+                children: [
+                  ForwardContainer(),
+                  PostContent(
+                    userName: 'null∞llunTaKa',
+                    userIcon: 'assets/first_icon.JPG',
+                    postText: 'ᝰ✍🏻',
+                    postImage: 'assets/first_post.png',
+                    comments: '1',
+                    forwards: '47',
+                    likes: '783',
+                    views: '1.6萬',
+                    verified: true,
+                    userAccount: '@nullllllun•1天',
+                  ),
+                  Divider(
+                    color: Color.fromARGB(255, 78, 94, 109),
+                    thickness: 0.3,
+                  ), // 分隔線
+                  PostContent(
+                    userName: 'namaco moon 🌖',
+                    userIcon: 'assets/second_icon.JPG',
+                    postText:
+                        'just realized she uses her right hand for powder/jinx and her left hand for caitlyn. oh, these are her girls and she was born with two hands to be able to love them both',
+                    postImage: 'assets/second_post.JPG',
+                    comments: '26',
+                    forwards: '1700',
+                    likes: '1.9萬',
+                    views: '20萬',
+                    verified: false,
+                    userAccount: '@namacomoon•1天',
+                  ),
+                  Divider(
+                    color: Color.fromARGB(255, 78, 94, 109),
+                    thickness: 0.3,
+                  ), // 分隔線
+                  PostContent(
+                    userName: 'ハスカップ07',
+                    userIcon: 'assets/third_icon.JPG',
+                    postText: '河津桜満開な葛西臨海公園が美しいです',
+                    postImage: 'assets/third_post.jpeg',
+                    comments: '12',
+                    forwards: '864',
+                    likes: '7798',
+                    views: '14萬',
+                    verified: true,
+                    userAccount: '@haskap1017•1天',
+                  ),
+                ],
+              )
+            else
+              // 正在跟隨 標籤的內容
+              const Column(
+                children: [
+                  PostContent(
+                    userName: 'Flutter Dev',
+                    userIcon: 'assets/my_icon.JPG', // 使用現有資源
+                    postText: '今天學習了如何在Flutter中實現標籤切換功能！',
+                    postImage: 'assets/first_post.png', // 使用現有資源
+                    comments: '42',
+                    forwards: '105',
+                    likes: '1.2萬',
+                    views: '8.9萬',
+                    verified: true,
+                    userAccount: '@flutterdev•3小時',
+                  ),
+                  Divider(
+                    color: Color.fromARGB(255, 78, 94, 109),
+                    thickness: 0.3,
+                  ), // 分隔線
+                  PostContent(
+                    userName: 'Mobile Developer',
+                    userIcon: 'assets/second_icon.JPG', // 使用現有資源
+                    postText: '跨平台開發真的是未來的趨勢，Flutter的性能令人驚嘆！',
+                    postImage: 'assets/third_post.jpeg', // 使用現有資源
+                    comments: '56',
+                    forwards: '238',
+                    likes: '4.5萬',
+                    views: '38萬',
+                    verified: true,
+                    userAccount: '@mobiledev•6小時',
+                  ),
+                  Divider(
+                    color: Color.fromARGB(255, 78, 94, 109),
+                    thickness: 0.3,
+                  ), // 分隔線
+                  PostContent(
+                    userName: 'UI Designer',
+                    userIcon: 'assets/third_icon.JPG', // 使用現有資源
+                    postText: '分享一下今天完成的UI設計，靈感來自於自然界的色彩',
+                    postImage: 'assets/second_post.JPG', // 使用現有資源
+                    comments: '32',
+                    forwards: '517',
+                    likes: '2.3萬',
+                    views: '15.7萬',
+                    verified: false,
+                    userAccount: '@uidesigner•12小時',
+                  ),
+                ],
+              ),
           ],
         ),
       ),
@@ -93,8 +168,16 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
+// 修改 CustomAppBar 接收並使用外部傳入的選擇索引和回調函數
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final int selectedIndex;
+  final Function(int) onTabChanged;
+
+  const CustomAppBar({
+    super.key,
+    required this.selectedIndex,
+    required this.onTabChanged,
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(77);
@@ -105,7 +188,6 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _CustomAppBarState extends State<CustomAppBar>
     with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0; // 0: 為你推薦, 1: 正在跟隨
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -118,6 +200,25 @@ class _CustomAppBarState extends State<CustomAppBar>
     );
     _animation = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
+    // 根據初始選擇設置動畫控制器的初始狀態
+    if (widget.selectedIndex == 1) {
+      _controller.value = 1.0;
+    }
+  }
+
+  @override
+  void didUpdateWidget(CustomAppBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // 當外部索引變化時，更新動畫
+    if (widget.selectedIndex != oldWidget.selectedIndex) {
+      if (widget.selectedIndex == 0) {
+        _controller.reverse();
+      } else {
+        _controller.forward();
+      }
+    }
   }
 
   @override
@@ -127,15 +228,8 @@ class _CustomAppBarState extends State<CustomAppBar>
   }
 
   void _onTabChanged(int index) {
-    if (_selectedIndex != index) {
-      setState(() {
-        _selectedIndex = index;
-        if (index == 0) {
-          _controller.reverse();
-        } else {
-          _controller.forward();
-        }
-      });
+    if (widget.selectedIndex != index) {
+      widget.onTabChanged(index);
     }
   }
 
@@ -218,7 +312,7 @@ class _CustomAppBarState extends State<CustomAppBar>
                       child: Text(
                         '為你推薦',
                         style: TextStyle(
-                          color: _selectedIndex == 0
+                          color: widget.selectedIndex == 0
                               ? Colors.white
                               : const Color.fromARGB(255, 139, 152, 165),
                           fontWeight: FontWeight.bold,
@@ -235,7 +329,7 @@ class _CustomAppBarState extends State<CustomAppBar>
                       child: Text(
                         '正在跟隨',
                         style: TextStyle(
-                          color: _selectedIndex == 1
+                          color: widget.selectedIndex == 1
                               ? Colors.white
                               : const Color.fromARGB(255, 139, 152, 165),
                           fontWeight: FontWeight.bold,
@@ -429,14 +523,18 @@ class UserInfoRow extends StatelessWidget {
             color: Color.fromARGB(255, 29, 155, 240),
             size: 15,
           ),
-        Text(
-          ' $userAccount ',
-          style: const TextStyle(
-            color: Color.fromARGB(255, 139, 152, 165),
-            fontSize: 15,
+        Expanded(
+          // 用Expanded包裹Text以控制長度
+          child: Text(
+            ' $userAccount ',
+            style: const TextStyle(
+              color: Color.fromARGB(255, 139, 152, 165),
+              fontSize: 15,
+            ),
+            overflow: TextOverflow.ellipsis, // 當文字過長時顯示省略號
+            maxLines: 1, // 限制最多一行
           ),
         ),
-        const Spacer(),
         const Padding(
           padding: EdgeInsets.only(right: 1.0),
           child: Icon(Icons.more_horiz,
@@ -636,11 +734,25 @@ class IncrementButton extends StatelessWidget {
   }
 }
 
-class CustomNavigationBar extends StatelessWidget {
+class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});
 
   @override
+  State<CustomNavigationBar> createState() => _CustomNavigationBarState();
+}
+
+class _CustomNavigationBarState extends State<CustomNavigationBar> {
+  // 判斷當前是否在搜尋頁面
+  bool isSearchPage() {
+    // 檢查當前路由是否為搜尋頁面
+    return ModalRoute.of(context)?.settings.name == '/search';
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // 檢查當前是否在搜尋頁面
+    final bool onSearchPage = isSearchPage();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -651,22 +763,303 @@ class CustomNavigationBar extends StatelessWidget {
         Container(
           color: const Color.fromARGB(255, 21, 31, 42),
           padding: const EdgeInsets.only(top: 2, bottom: 25), // 調整單一 padding
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              ImageIcon(AssetImage('assets/home.png'),
-                  size: 32, color: Colors.white),
-              Icon(Icons.search, size: 32, color: Colors.white),
-              ImageIcon(AssetImage('assets/grok.png'),
+              // 首頁圖標 - 根據頁面狀態決定是實心還是空心
+              GestureDetector(
+                onTap: () {
+                  // 如果當前不是在首頁，則返回首頁
+                  if (onSearchPage) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: onSearchPage
+                    ? const Icon(Icons.home_outlined,
+                        size: 32, color: Colors.white)
+                    : const ImageIcon(AssetImage('assets/home.png'),
+                        size: 32, color: Colors.white),
+              ),
+
+              // 搜尋圖標 - 根據頁面狀態決定粗細
+              GestureDetector(
+                onTap: () {
+                  // 如果當前不是在搜尋頁面，則導航到搜尋頁面
+                  if (!onSearchPage) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SearchPage(),
+                        settings: const RouteSettings(name: '/search'),
+                      ),
+                    );
+                  }
+                },
+                child: Icon(
+                  Icons.search,
+                  size: 32,
+                  color: Colors.white,
+                  weight: onSearchPage ? 800 : 400, // 在搜尋頁面時使用粗體圖標
+                ),
+              ),
+              const ImageIcon(AssetImage('assets/grok.png'),
                   size: 52, color: Colors.white),
-              Icon(Icons.play_circle_outline, size: 27, color: Colors.white),
-              ImageIcon(AssetImage('assets/notification.png'),
+              const Icon(Icons.play_circle_outline,
                   size: 27, color: Colors.white),
-              Icon(Icons.mail_outlined, size: 27, color: Colors.white),
+              const ImageIcon(AssetImage('assets/notification.png'),
+                  size: 27, color: Colors.white),
+              const Icon(Icons.mail_outlined, size: 27, color: Colors.white),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+// 當用戶點擊底部導航欄的搜尋圖標時顯示的搜尋頁面
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  final TextEditingController _searchController = TextEditingController();
+
+  // 搜尋記錄示例數據 - 增加了verified屬性
+  final List<SearchRecord> _recentSearches = [
+    SearchRecord(
+      userIcon: 'assets/recent_icon.JPG',
+      userName: 'ちいかわグッズ公式',
+      userAccount: '@chiikawa_kouhou',
+      verified: true,
+    ),
+    SearchRecord(
+      userIcon: 'assets/third_icon.JPG',
+      userName: 'ハスカップ07',
+      userAccount: '@haskap1017',
+      verified: true,
+    ),
+    SearchRecord(
+      userIcon: 'assets/second_icon.JPG',
+      userName: 'namaco moon 🌖',
+      userAccount: '@namacomoon',
+      verified: false,
+    ),
+    SearchRecord(
+      userIcon: 'assets/recent_seicon.JPG',
+      userName: 'ちいかわグッズ案内',
+      userAccount: '@chiikawasan',
+      verified: true,
+    ),
+    SearchRecord(
+      userIcon: 'assets/first_icon.JPG',
+      userName: 'Mobile Developer',
+      userAccount: '@mobiledev',
+      verified: true,
+    ),
+    SearchRecord(
+      userIcon: 'assets/my_icon.JPG',
+      userName: 'Meowowo',
+      userAccount: '@meowmeow',
+      verified: false,
+    ),
+  ];
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 21, 32, 43),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 搜尋欄和取消按鈕 - 上移和加寬
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 10, right: 10, top: 0, bottom: 5), // 減少頂部間距上移搜索欄
+              child: Row(
+                children: [
+                  // 搜尋欄 - 增加寬度
+                  Expanded(
+                    // flex: 6, // 增加搜索欄的相對寬度
+                    child: Container(
+                      height: 43,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 39, 51, 64),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        // 添加Center包裹內容以居中
+                        child: TextField(
+                          controller: _searchController,
+                          style: const TextStyle(color: Colors.white),
+                          // textAlign: TextAlign.center, // 文字居中
+                          decoration: const InputDecoration(
+                            icon: Padding(
+                              padding: EdgeInsets.only(left: 120), // 調整搜索圖標位置
+                              child: Icon(
+                                Icons.search,
+                                color: Color.fromARGB(255, 139, 152, 165),
+                              ),
+                            ),
+                            prefixIconConstraints:
+                                BoxConstraints(minWidth: 30), // 調整圖標寬度
+                            hintText: '搜尋',
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 139, 152, 165),
+                              fontSize: 18,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // 取消按鈕 - 減少寬度
+                  Expanded(
+                    flex: 0, // 減少取消按鈕的相對寬度
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        '取消',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 17, // 稍微縮小字體
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // 最近的搜尋標題
+            const Padding(
+              padding: EdgeInsets.only(left: 15, top: 3, bottom: 17),
+              child: Text(
+                '最近的搜尋',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            // 搜尋記錄的水平列表
+            SizedBox(
+              height: 120,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  children: _recentSearches
+                      .map((record) => Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: SearchRecordItem(record: record),
+                          ))
+                      .toList(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      // 添加底部導航欄
+      bottomNavigationBar: CustomNavigationBar(),
+    );
+  }
+}
+
+// 搜尋記錄數據模型 - 新增verified屬性
+class SearchRecord {
+  final String userIcon;
+  final String userName;
+  final String userAccount;
+  final bool verified;
+
+  SearchRecord({
+    required this.userIcon,
+    required this.userName,
+    required this.userAccount,
+    required this.verified,
+  });
+}
+
+// 單個搜尋記錄項目的UI - 加入了verified標記
+class SearchRecordItem extends StatelessWidget {
+  final SearchRecord record;
+
+  const SearchRecordItem({
+    super.key,
+    required this.record,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 73,
+      child: Column(
+        mainAxisSize: MainAxisSize.min, // 使Column只佔用需要的空間
+        children: [
+          // 用戶頭像
+          ClipOval(
+            child: Image(
+              image: AssetImage(record.userIcon),
+              height: 55,
+              width: 55,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 5), // 減少間距
+          // 用戶名稱和認證標記
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: Text(
+                  record.userName,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13, // 減小字體
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
+              if (record.verified)
+                const Padding(
+                  padding: EdgeInsets.only(left: 2),
+                  child: Icon(
+                    Icons.verified,
+                    color: Color.fromARGB(255, 29, 155, 240),
+                    size: 12, // 小一點的認證標記
+                  ),
+                ),
+            ],
+          ),
+          // 用戶帳號
+          Text(
+            record.userAccount,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 139, 152, 165),
+              fontSize: 13, // 減小字體
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ],
+      ),
     );
   }
 }
