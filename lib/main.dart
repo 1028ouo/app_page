@@ -604,8 +604,34 @@ class _PostActionsState extends State<PostActions> {
   void initState() {
     super.initState();
     // Convert string to int for manipulation
-    likesCount = int.tryParse(widget.likes.replaceAll(',', '')) ?? 0;
-    forwardsCount = int.tryParse(widget.forwards.replaceAll(',', '')) ?? 0;
+    likesCount = _parseCount(widget.likes);
+    forwardsCount = _parseCount(widget.forwards);
+  }
+
+  @override
+  void didUpdateWidget(PostActions oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Update counts when widget props change (important for tab switching)
+    if (oldWidget.likes != widget.likes) {
+      likesCount = _parseCount(widget.likes);
+    }
+
+    if (oldWidget.forwards != widget.forwards) {
+      forwardsCount = _parseCount(widget.forwards);
+    }
+  }
+
+  // Helper method to parse counts that might contain commas or "萬" (ten thousand)
+  int _parseCount(String countStr) {
+    if (countStr.contains('萬')) {
+      // Handle counts like "1.6萬"
+      double num = double.parse(countStr.replaceAll('萬', ''));
+      return (num * 10000).round();
+    } else {
+      // Handle regular counts or those with commas
+      return int.tryParse(countStr.replaceAll(',', '')) ?? 0;
+    }
   }
 
   // Helper method to format numbers with proper notation (e.g., "1.6萬")
@@ -624,7 +650,7 @@ class _PostActionsState extends State<PostActions> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.only(top: 2, left: 2, right: 0, bottom: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -717,9 +743,10 @@ class _PostActionsState extends State<PostActions> {
                         : const Color.fromARGB(255, 139, 152, 165),
                     size: 17,
                   ),
+                  const SizedBox(width: 4),
                   Expanded(
                     child: Text(
-                      ' ${formatCount(likesCount)}',
+                      formatCount(likesCount),
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: isLiked
@@ -744,9 +771,10 @@ class _PostActionsState extends State<PostActions> {
                     image: AssetImage('assets/data.png'),
                     height: 15,
                     color: Color.fromARGB(255, 139, 152, 165)),
+                const SizedBox(width: 4),
                 Expanded(
                   child: Text(
-                    ' ${widget.views}',
+                    widget.views,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         color: Color.fromARGB(255, 139, 152, 165),
@@ -789,8 +817,8 @@ class IncrementButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      width: 57.0, // 設定按鈕寬度
-      height: 57.0, // 設定按鈕高度
+      width: 55.0, // 設定按鈕寬度
+      height: 55.0, // 設定按鈕高度
       child: FloatingActionButton(
         onPressed: null,
         backgroundColor: Colors.blue, // 設定按鈕背景顏色
@@ -834,7 +862,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         ),
         Container(
           color: const Color.fromARGB(255, 21, 31, 42),
-          padding: const EdgeInsets.only(top: 2, bottom: 25), // 調整單一 padding
+          padding: const EdgeInsets.only(top: 2, bottom: 27), // 調整單一 padding
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
