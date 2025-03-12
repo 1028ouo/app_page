@@ -114,48 +114,50 @@ class _MyHomePageState extends State<MyHomePage> {
               const Column(
                 children: [
                   PostContent(
-                    userName: 'Flutter Dev',
-                    userIcon: 'assets/my_icon.JPG', // 使用現有資源
-                    postText: '今天學習了如何在Flutter中實現標籤切換功能！',
-                    postImage: 'assets/first_post.png', // 使用現有資源
-                    comments: '42',
-                    forwards: '105',
-                    likes: '1.2萬',
-                    views: '8.9萬',
+                    userName: 'ちいかわグッズ案内',
+                    userIcon: 'assets/recent_seicon.JPG', // 使用現有資源
+                    postText:
+                        '\\ 受注生産決定 / \n\n『ちいかわxMLB TOKYO SERIES』\n\n大人気★コラボグッズの\n受注生産が決定しました！！\n\n詳細は後日お知らせとのことです',
+                    postImage: 'assets/following_first_post.jpeg', // 使用現有資源
+                    comments: '74',
+                    forwards: '1306',
+                    likes: '7412',
+                    views: '105萬',
                     verified: true,
-                    userAccount: '@flutterdev•3小時',
+                    userAccount: '@chiikawasan•3天',
                   ),
                   Divider(
                     color: Color.fromARGB(255, 78, 94, 109),
                     thickness: 0.3,
                   ), // 分隔線
                   PostContent(
-                    userName: 'Mobile Developer',
-                    userIcon: 'assets/second_icon.JPG', // 使用現有資源
-                    postText: '跨平台開發真的是未來的趨勢，Flutter的性能令人驚嘆！',
-                    postImage: 'assets/third_post.jpeg', // 使用現有資源
-                    comments: '56',
-                    forwards: '238',
-                    likes: '4.5萬',
-                    views: '38萬',
+                    userName: 'ちいかわ💫アニメ火金',
+                    userIcon: 'assets/following_second_icon.jpeg', // 使用現有資源
+                    postText: '🐇',
+                    postImage: 'assets/following_second_post.jpeg', // 使用現有資源
+                    comments: '1441',
+                    forwards: '5.4萬',
+                    likes: '30萬',
+                    views: '1003萬',
                     verified: true,
-                    userAccount: '@mobiledev•6小時',
+                    userAccount: '@ngnchiikawa•6小時',
                   ),
                   Divider(
                     color: Color.fromARGB(255, 78, 94, 109),
                     thickness: 0.3,
                   ), // 分隔線
                   PostContent(
-                    userName: 'UI Designer',
-                    userIcon: 'assets/third_icon.JPG', // 使用現有資源
-                    postText: '分享一下今天完成的UI設計，靈感來自於自然界的色彩',
-                    postImage: 'assets/second_post.JPG', // 使用現有資源
-                    comments: '32',
-                    forwards: '517',
-                    likes: '2.3萬',
-                    views: '15.7萬',
-                    verified: false,
-                    userAccount: '@uidesigner•12小時',
+                    userName: 'ちいかわグッズ公式',
+                    userIcon: 'assets/recent_icon.JPG', // 使用現有資源
+                    postText:
+                        '\\ 新商品 /\n『そろそろイースターなマスコット』\n\n（ちいかわ、ハチワレ、うさぎ）\n\n📝3月21日発売\n・ちいかわマーケット（オンラインストア）\n(chiikawamarket.jp)\n・ちいかわらんど\n（原宿店、大阪梅田店、福岡パルコ店、\n京都四条河原町店、TOKYO Station\n東京スカイツリータウン・ソラマチ店、名古屋パルコ店、仙台パルコ、札幌パルコ店、マルイシティ横浜店、広島パルコ店、心斎橋パルコ店）\n・ちいかわPOP UP STORE\n（サンシャインシティ アネックス、あべのハルカス近鉄本店、イオンモール大和、アティ郡山、イオンモール岡山、イオンモール日の出、イオンモール天童）\n#ちいかわ',
+                    postImage: 'assets/following_third_post.jpeg', // 使用現有資源
+                    comments: '10',
+                    forwards: '1483',
+                    likes: '9268',
+                    views: '56萬',
+                    verified: true,
+                    userAccount: '@chiikawa_kouhou•1天',
                   ),
                 ],
               ),
@@ -574,7 +576,7 @@ class PostImage extends StatelessWidget {
   }
 }
 
-class PostActions extends StatelessWidget {
+class PostActions extends StatefulWidget {
   final String comments;
   final String forwards;
   final String likes;
@@ -587,6 +589,37 @@ class PostActions extends StatelessWidget {
     required this.likes,
     required this.views,
   });
+
+  @override
+  State<PostActions> createState() => _PostActionsState();
+}
+
+class _PostActionsState extends State<PostActions> {
+  bool isLiked = false;
+  bool isForwarded = false;
+  late int likesCount;
+  late int forwardsCount;
+
+  @override
+  void initState() {
+    super.initState();
+    // Convert string to int for manipulation
+    likesCount = int.tryParse(widget.likes.replaceAll(',', '')) ?? 0;
+    forwardsCount = int.tryParse(widget.forwards.replaceAll(',', '')) ?? 0;
+  }
+
+  // Helper method to format numbers with proper notation (e.g., "1.6萬")
+  String formatCount(int count) {
+    if (count >= 10000) {
+      double inWan = count / 10000;
+      return '${inWan.toStringAsFixed(1)}萬';
+    } else if (count >= 1000) {
+      // Format as x,xxx for counts over 1000
+      return count.toString().replaceAllMapped(
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');
+    }
+    return count.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -606,7 +639,7 @@ class PostActions extends StatelessWidget {
                 const SizedBox(width: 4),
                 Expanded(
                   child: Text(
-                    comments,
+                    widget.comments,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         color: Color.fromARGB(255, 139, 152, 165),
@@ -620,47 +653,86 @@ class PostActions extends StatelessWidget {
 
           Expanded(
             flex: 1,
-            child: Row(
-              children: [
-                const Image(
-                    image: AssetImage('assets/forward.png'),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  isForwarded = !isForwarded;
+                  if (isForwarded) {
+                    forwardsCount++;
+                  } else {
+                    forwardsCount--;
+                  }
+                });
+              },
+              child: Row(
+                children: [
+                  Image(
+                    image: const AssetImage('assets/forward.png'),
                     height: 18,
-                    color: Color.fromARGB(255, 139, 152, 165)),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: Text(
-                    forwards,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 139, 152, 165),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400),
+                    color: isForwarded
+                        ? const Color.fromARGB(
+                            255, 0, 186, 124) // Green color when forwarded
+                        : const Color.fromARGB(255, 139, 152, 165),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      formatCount(forwardsCount),
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: isForwarded
+                            ? const Color.fromARGB(
+                                255, 0, 186, 124) // Green color when forwarded
+                            : const Color.fromARGB(255, 139, 152, 165),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
 
           Expanded(
             flex: 1,
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.favorite_border,
-                  color: Color.fromARGB(255, 139, 152, 165),
-                  size: 17,
-                ),
-                Expanded(
-                  child: Text(
-                    ' $likes',
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        color: Color.fromARGB(255, 139, 152, 165),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  isLiked = !isLiked;
+                  if (isLiked) {
+                    likesCount++;
+                  } else {
+                    likesCount--;
+                  }
+                });
+              },
+              child: Row(
+                children: [
+                  Icon(
+                    isLiked ? Icons.favorite : Icons.favorite_border,
+                    color: isLiked
+                        ? const Color.fromARGB(
+                            255, 249, 24, 128) // Pink color when liked
+                        : const Color.fromARGB(255, 139, 152, 165),
+                    size: 17,
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Text(
+                      ' ${formatCount(likesCount)}',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: isLiked
+                            ? const Color.fromARGB(
+                                255, 249, 24, 128) // Pink color when liked
+                            : const Color.fromARGB(255, 139, 152, 165),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
 
@@ -674,7 +746,7 @@ class PostActions extends StatelessWidget {
                     color: Color.fromARGB(255, 139, 152, 165)),
                 Expanded(
                   child: Text(
-                    ' $views',
+                    ' ${widget.views}',
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         color: Color.fromARGB(255, 139, 152, 165),
